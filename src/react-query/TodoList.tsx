@@ -24,7 +24,7 @@ const TodoList = () => {
         disabled={page == 1}
         onClick={() => setPage(page - 1)}
       >
-        previous
+        Previous
       </button>
       <button
         className="btn btn-primary my-3 ms-1"
