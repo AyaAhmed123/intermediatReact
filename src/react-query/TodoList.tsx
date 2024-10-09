@@ -1,36 +1,35 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import useTodos from "../hooks/useTodos";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const TodoList = () => {
-  const [page, setPage] = useState(1);
   const [pageSize, setpageSize] = useState(10);
-  const { data: todos, error, isLoading } = useTodos({ page, pageSize });
+  const { data, error, isLoading, fetchNextPage, isFetchingNextPage } =
+    useTodos({ pageSize });
+  console.log(data);
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
 
   return (
     <>
       <ul className="list-group">
-        {todos?.map((todo) => (
-          <li key={todo.id} className="list-group-item">
-            {todo.title}
-          </li>
+        {data.pages?.map((page: any, index) => (
+          <React.Fragment key={index}>
+            {page.map((todo: any) => (
+              <li key={todo.id} className="list-group-item">
+                {todo.title}
+              </li>
+            ))}
+          </React.Fragment>
         ))}
       </ul>
       <button
         className="btn btn-primary my-3 ms-1"
-        disabled={page == 1}
-        onClick={() => setPage(page - 1)}
+        disabled={isFetchingNextPage}
+        onClick={() => fetchNextPage()}
       >
-        Previous
-      </button>
-      <button
-        className="btn btn-primary my-3 ms-1"
-        onClick={() => setPage(page + 1)}
-      >
-        next
+        {isFetchingNextPage ? "loading" : "load more"}
       </button>
     </>
   );
