@@ -7,7 +7,7 @@ const TodoList = () => {
   const [pageSize, setpageSize] = useState(10);
   const { data, error, isLoading, fetchNextPage, isFetchingNextPage } =
     useTodos({ pageSize });
-  console.log(data);
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
 
