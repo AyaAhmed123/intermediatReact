@@ -4,9 +4,7 @@ import useTodos from "../hooks/useTodos";
 import React, { useState } from "react";
 
 const TodoList = () => {
-  const [pageSize, setpageSize] = useState(10);
-  const { data, error, isLoading, fetchNextPage, isFetchingNextPage } =
-    useTodos({ pageSize });
+  const { data: todos, error, isLoading } = useTodos();
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
@@ -14,23 +12,12 @@ const TodoList = () => {
   return (
     <>
       <ul className="list-group">
-        {data.pages?.map((page: any, index) => (
-          <React.Fragment key={index}>
-            {page.map((todo: any) => (
-              <li key={todo.id} className="list-group-item">
-                {todo.title}
-              </li>
-            ))}
-          </React.Fragment>
+        {todos?.map((todo: any) => (
+          <li key={todo.id} className="list-group-item">
+            {todo.title}
+          </li>
         ))}
       </ul>
-      <button
-        className="btn btn-primary my-3 ms-1"
-        disabled={isFetchingNextPage}
-        onClick={() => fetchNextPage()}
-      >
-        {isFetchingNextPage ? "loading" : "load more"}
-      </button>
     </>
   );
 };
