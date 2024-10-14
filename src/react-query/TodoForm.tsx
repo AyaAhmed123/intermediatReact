@@ -30,7 +30,7 @@ const TodoForm = () => {
         </div>
         <div className="col">
           <button className="btn btn-primary" disabled={addTodo.isLoading}>
-            {addTodo.isLoading ? "in progress" : "Add"} Add
+            Add
           </button>
         </div>
       </form>
