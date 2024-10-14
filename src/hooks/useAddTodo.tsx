@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { Todo } from "./useTodos";
+import { CASH_TODO_KEY } from "../react-query/constatnt";
 interface ContextData {
   previousData: Todo[];
 }
@@ -12,8 +13,9 @@ const useAddTodo = (addTodo: () => void) => {
         .post<Todo>("https://jsonplaceholder.typicode.com/todos", todo)
         .then((res) => res.data),
     onMutate(clientTodo) {
-      const previousData = queryClient.getQueryData<Todo[]>(["todos"]) || [];
-      queryClient.setQueryData<Todo[]>(["todos"], (todos = []) => [
+      const previousData =
+        queryClient.getQueryData<Todo[]>(CASH_TODO_KEY) || [];
+      queryClient.setQueryData<Todo[]>(CASH_TODO_KEY, (todos = []) => [
         clientTodo,
         ...todos,
       ]);
@@ -22,14 +24,14 @@ const useAddTodo = (addTodo: () => void) => {
     },
     onSuccess(getFromServer, sendToServer, context) {
       console.log(getFromServer, sendToServer, context, queryClient);
-      // queryClient.invalidateQueries({ queryKey: ["todos"] });
-      queryClient.setQueryData<Todo[]>(["todos"], (todos) =>
+      // queryClient.invalidateQueries({ queryKey: CASH_TODO_KEY });
+      queryClient.setQueryData<Todo[]>(CASH_TODO_KEY, (todos) =>
         todos?.map((todo) => (todo == sendToServer ? getFromServer : todo))
       );
     },
     onError(error, sendToServer, context) {
       if (!context) return;
-      queryClient.setQueryData<Todo[]>(["todos"], context.previousData);
+      queryClient.setQueryData<Todo[]>(CASH_TODO_KEY, context.previousData);
     },
   });
 };

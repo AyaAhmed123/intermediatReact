@@ -1,5 +1,6 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { CASH_TODO_KEY } from "../react-query/constatnt";
 
 export interface Todo {
   id: number;
@@ -14,7 +15,7 @@ const useTodos = () => {
       .get<Todo[]>("https://jsonplaceholder.typicode.com/todos", {})
       .then((res) => res.data);
   return useQuery<Todo[], Error>({
-    queryKey: ["todos"],
+    queryKey: CASH_TODO_KEY,
     queryFn: fetchData,
 
     staleTime: 1 * 60 * 1000,
