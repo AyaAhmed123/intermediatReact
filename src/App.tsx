@@ -12,7 +12,7 @@ import NavBar from "./state-management/NavBar";
 import HomePage from "./state-management/HomePage";
 import authReducer from "./state-management/Reducer/authReducer";
 import AuthContext from "./state-management/contexts/authContext";
-import AuthProvider from "./state-management/authProvider";
+import AuthProvider from "./state-management/AuthProvider";
 
 function App() {
   const [tasks, taskDispatch] = useReducer(taskReducer, []);
