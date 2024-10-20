@@ -12,18 +12,18 @@ import NavBar from "./state-management/NavBar";
 import HomePage from "./state-management/HomePage";
 import authReducer from "./state-management/Reducer/authReducer";
 import AuthContext from "./state-management/contexts/authContext";
+import AuthProvider from "./state-management/authProvider";
 
 function App() {
   const [tasks, taskDispatch] = useReducer(taskReducer, []);
-  const [user, authDispatch] = useReducer(authReducer, "");
 
   return (
-    <AuthContext.Provider value={{ user, dispatch: authDispatch }}>
+    <AuthProvider>
       <TaskContext.Provider value={{ tasks, dispatch: taskDispatch }}>
         <NavBar />
         <HomePage />
       </TaskContext.Provider>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
 
