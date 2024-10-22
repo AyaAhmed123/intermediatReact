@@ -6,6 +6,7 @@ import useStoreCounter from "./counter/store";
 const NavBar = () => {
   const { tasks } = useContext(TaskContext);
   const { counter } = useStoreCounter();
+  // console.log("render");
   return (
     <nav className="navbar d-flex justify-content-between">
       <span className="badge text-bg-secondary">counter :{counter}</span>
