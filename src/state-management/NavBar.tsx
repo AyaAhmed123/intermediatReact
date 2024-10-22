@@ -1,12 +1,15 @@
 import { useContext } from "react";
 import LoginStatus from "./auth/LoginStatus";
 import TaskContext from "./tasks/taskContext";
+import useStoreCounter from "./counter/useStoreCounter";
 
 const NavBar = () => {
   const { tasks } = useContext(TaskContext);
+  const { counter } = useStoreCounter();
   return (
     <nav className="navbar d-flex justify-content-between">
-      <span className="badge text-bg-secondary">{tasks.length}</span>
+      <span className="badge text-bg-secondary">counter :{counter}</span>
+      <span className="badge text-bg-secondary">tasks: {tasks.length}</span>
       <LoginStatus />
     </nav>
   );
