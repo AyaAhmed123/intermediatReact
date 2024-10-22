@@ -1,8 +1,8 @@
-import { useReducer, useState } from "react";
 import useStoreCounter from "./store";
-
+import { mountStoreDevtool } from "simple-zustand-devtools";
 const Counter = () => {
   const { counter, increment, reset } = useStoreCounter();
+
   return (
     <div>
       Counter ({counter})
@@ -15,5 +15,7 @@ const Counter = () => {
     </div>
   );
 };
-
+if (process.env.NODE_ENV === "development") {
+  mountStoreDevtool("Store", useStoreCounter);
+}
 export default Counter;
