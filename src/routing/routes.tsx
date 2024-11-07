@@ -3,8 +3,10 @@ import HomePage from "./HomePage";
 import ContactPage from "./ContactPage";
 import UserDetailPage from "./UserDetailPage";
 import Layout from "./Layout";
-import UserPage from "./UserPage";
 import ErrorPage from "./ErrorPage";
+import UserPage from "./userPage";
+import LoginPage from "./LoginPage";
+import PrivateRoute from "./privateRoute";
 
 const router = createBrowserRouter([
   {
@@ -13,13 +15,20 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomePage /> },
+      { path: "/login", element: <LoginPage /> },
+
+      { path: "contact", element: <ContactPage /> },
+    ],
+  },
+  {
+    // layout did not take path
+    element: <PrivateRoute />,
+    children: [
       {
         path: "users",
         element: <UserPage />,
         children: [{ path: ":id", element: <UserDetailPage /> }],
       },
-
-      { path: "contact", element: <ContactPage /> },
     ],
   },
 ]);
